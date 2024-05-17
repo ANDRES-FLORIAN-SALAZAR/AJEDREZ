@@ -1,3 +1,4 @@
+skhjhjk
 import os
 
 tablero = [
