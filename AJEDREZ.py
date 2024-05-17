@@ -54,6 +54,28 @@ def mover_peon(
     else:
         print('Movimiento no disponible')
 
+    if fila + 1 == fila_final and \
+            (
+                (
+                    # movimiento al frente
+                    columna_final == columna and
+                    tab[fila_final][columna_final] == '..'
+                ) or (
+                    # movimiento diagonal derecha
+                    columna_final == columna+1 and
+                    tab[fila_final][columna_final] == '..'
+                ) or (
+                    # movimiento diagonal izquierda
+                    columna_final == columna-1 and
+                    tab[fila_final][columna_final] == '..'
+                )
+            ):
+        tab[fila_final][columna_final] = 'pe'
+        tab[fila][columna] = '..'
+
+    else:
+        print('Movimiento no disponible')
+
 
 def mover_caballo(
     tab,
