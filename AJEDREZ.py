@@ -277,17 +277,16 @@ def mover_ficha(tablero, pos, pos_obj):
        (ficha_ini in negras and ficha_obj in (blancas + espacio)):
 
         if ficha_ini in ('TO', 'to'):
-            print(tablero, 7, 0, 7, 2)
+            mover_torre(tablero, pos[0], pos[1], pos_obj[0], pos_obj[1])
 
         elif ficha_ini in ('CA', 'ca'):
-            print(tablero, 7, 1, 5, 2)
+            mover_caballo(tablero, pos[0], pos[1], pos_obj[0], pos_obj[1])
 
         elif ficha_ini in ('QU', 'qu'):
-            print(tablero, 7, 3, 6, 3)
+            mover_reina(tablero, pos[0], pos[1], pos_obj[0], pos_obj[1])
 
         elif ficha_ini in ('KI', 'ki'):
-            print(tablero, 7, 4, 7, 5)
-
+            mover_rey(tablero, pos[0], pos[1], pos_obj[0], pos_obj[1])
         else:
             ficha_ini in ('PE', 'pe')
             mover_peon(tablero, pos[0], pos[1], pos_obj[0], pos_obj[1])
