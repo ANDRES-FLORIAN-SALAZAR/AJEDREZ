@@ -20,7 +20,7 @@ def imprimir_tablero(tablero):
         print(i+1, end=' | ')
         for j in fila:
             print(j, end=' | ')
-        print(f'{8-i}')
+        print(f'{i+1}')
     print('   _______________________________________')
     print('    A ', '  B  ', ' C ', '  D ', '  E ', '  F ', '  G ', '  H ')
 
@@ -221,9 +221,9 @@ def mover_rey(
 
 
 def pos2int(pos):
-    f1 = 8 - int(pos[1])
+    f1 = int(pos[1])-1
     c1 = 'ABCDEFGH'.find(pos[0])
-    f2 = 8 - int(pos[3])
+    f2 = int(pos[3])-1
     c2 = 'ABCDEFGH'.find(pos[2])
 
     return f1, c1, f2, c2
@@ -250,8 +250,11 @@ def leer_movimiento():
                 movimiento[3] in filas:
             print('movimiento valido')
             f1, c1, f2, c2 = pos2int(movimiento)
-            print(f'{movimiento[1]} : {f1} |{movimiento[1]} : {c1}|{tablero[f1][c1]}')
-            print(f'{movimiento[3]} : {f1} |{movimiento[2]} : {c1}|{tablero[f2][c2]}')
+            print(f'{movimiento[1]} : {f1} |{
+                  movimiento[0]} : {c1}|{tablero[f1][c1]}')
+            print(f'{movimiento[3]} : {f2} |{
+                  movimiento[2]} : {c2}|{tablero[f2][c2]}')
+            mover_ficha(tablero, (f1, c1), (f2, c2))
 
         else:
             print('movimiento no permitido')
@@ -268,7 +271,7 @@ def mover_ficha(tablero, pos, pos_obj):
 
     blancas = ('to', 'ca', 'al', 'qu', 'ki', 'pe')
     negras = ('TO', 'CA', 'AL', 'QU', 'KI', 'PE')
-    espacio = ('..')
+    espacio = ('..',)
 
     if (ficha_ini in blancas and ficha_obj in (negras + espacio)) or \
        (ficha_ini in negras and ficha_obj in (blancas + espacio)):
@@ -287,7 +290,7 @@ def mover_ficha(tablero, pos, pos_obj):
 
         else:
             ficha_ini in ('PE', 'pe')
-            print(tablero, pos[6], pos[3], pos_obj[5], pos_obj[3])
+            mover_peon(tablero, pos[0], pos[1], pos_obj[0], pos_obj[1])
 
 
 leer_movimiento()
