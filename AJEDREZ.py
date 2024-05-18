@@ -118,6 +118,35 @@ def mover_caballo(
     else:
         print('Movimiento no disponible')
 
+    mover_caballo = False
+    # movimientos izquierda
+    if fila + 2 == fila_final:
+        if columna - 1 == columna_final or columna + 1 == columna_final:
+            if tab[fila_final][columna_final] == '..':
+                mover_caballo = True
+    # movimientos abajo
+    elif fila + 1 == fila_final:
+        if columna - 2 == columna_final or columna + 2 == columna_final:
+            if tab[fila_final][columna_final] == '..':
+                mover_caballo = True
+    # movimientos derecha
+    elif fila - 2 == fila_final:
+        if columna - 1 == columna_final or columna + 1 == columna_final:
+            if tab[fila_final][columna_final] == '..':
+                mover_caballo = True
+    # movimiento arriba
+    elif fila - 1 == fila_final:
+        if columna - 2 == columna_final or columna + 2 == columna_final:
+            if tab[fila_final][columna_final] == '..':
+                mover_caballo = True
+    else:
+        mover_caballo = False
+
+    if mover_caballo:
+        tab[fila_final][columna_final] = 'ca'
+        tab[fila][columna] = '..'
+    else:
+        print('Movimiento no disponible')
 
 def mover_reina(
         tab,
@@ -162,7 +191,42 @@ def mover_reina(
     else:
         print('Movimiento no disponible')
 
+    mover_reina = True
 
+    if fila == fila_final:
+        # movimiento izquierda
+        if columna < columna_final:
+            for i in range(columna-1, columna_final):
+                if tab[fila][columna] == '..':
+                    mover_reina = True
+                    break
+        # movimientos derecha
+        elif columna > columna_final:
+            for i in range(columna_final-1, columna):
+                if tab[fila][columna] == '..':
+                    mover_reina = True
+                    break
+     # movimientos arriba
+    elif columna == columna_final:
+        if fila < fila_final:
+            for i in range(fila-1, fila_final):
+                if tab[fila][columna] == '..':
+                    mover_reina = True
+                    break
+         # movimientos abajo
+        elif fila > fila_final:
+            for i in range(fila_final-1, fila):
+                if tab[fila][columna] == '..':
+                    mover_reina = True
+                    break
+    else:
+        mover_reina = False
+    if mover_reina:
+        tab[fila_final][columna_final] = 'qu'
+        tab[fila][columna] = '..'
+    else:
+        print('Movimiento no disponible')
+        
 def mover_torre(
     tab,
     fila,
@@ -208,6 +272,44 @@ def mover_torre(
         tab[fila][columna] = '..'
     else:
         print('Movimiento no disponible')
+        
+    mover_torre = True
+    # movimiento horizontal
+    if fila == fila_final:
+        # movimiento derecha
+        if columna < columna_final:
+            for i in range(columna - 1, columna_final - 1, -1):
+                if tab[fila][i] == '..':
+                    mover_torre = True
+                    break
+
+    # movimiento izquierda
+        else:
+            for i in range(columna + 1, columna_final + 1, +1):
+                if tab[fila][i] == '..':
+                    mover_torre = True
+                    break
+# movimiento vertical
+    elif columna == columna_final:
+        # movimiento arriba
+        if fila > fila_final:
+            for i in range(fila - 1, fila_final - 1, -1):
+                if tab[i][columna] == '..':
+                    mover_torre = True
+                    break
+        # movimiento hacia abajo
+        else:
+            for i in range(fila - 1, fila_final - 1, -1):
+                if tab[i][columna] == '..':
+                    mover_torre == True
+                    break
+    else:
+        mover_torre = False
+    if mover_torre:
+        tab[fila_final][columna_final] = 'to'
+        tab[fila][columna] = '..'
+    else:
+        print('Movimiento no disponible')
 
 
 def mover_rey(
@@ -240,40 +342,87 @@ def mover_rey(
         tab[fila][columna] = '..'
     else:
         print('Movimiento no disponible')
+        
+    mover_rey = True
+
+    if fila + 1 == fila_final and \
+            (
+                (
+                    # movimiento al frente
+                    columna_final == columna and
+                    tab[fila_final][columna_final] == '..'
+                ) or (
+                    # movimiento diagonal derecha
+                    columna_final == columna+1 and
+                    tab[fila_final][columna_final] == '..'
+                ) or (
+                    # movimiento diagonal izquierda
+                    columna_final == columna-1 and
+                    tab[fila_final][columna_final] == '..'
+                )
+            ):
+        tab[fila_final][columna_final] = 'ki'
+        tab[fila][columna] = '..'
+    else:
+        print('Movimiento no disponible')
 
 def mover_alfil(
-    tablero, 
+    tab, 
     fila, 
     columna, 
     fila_final, 
     columna_final):
     
-    if not (0 <= fila < 8) or not (0 <= columna < 8) or \
-            not (0 <= fila_final < 8) or not (0 <= columna_final < 8):
-        print("Movimiento no disponible")
+    if not (0 <= fila < len(tab) and 0 <= columna < len(tab[0])):
+        print("Movimiento no valido")
         return
 
-    # Verificar si el movimiento es diagonal
+    # Verifica si el movimiento es en diagonal
     if abs(fila_final - fila) != abs(columna_final - columna):
-        print("Verifica los movimientos")
+        print("Movimiento no válido.")
         return
 
-    # Verificar espacio del tablero
-    dx = 1 if columna_final > columna else -1
-    dy = 1 if fila_final > fila else -1
-    x, y = columna, fila
+    # Verifica si todas las casillas entre la posición actual y la posición final están vacías
+    delta_fila = 1 if fila_final > fila else -1
+    delta_columna = 1 if columna_final > columna else -1
 
-    while x != columna_final:
-        x += dx
-        y += dy
-        if tablero[y][x] != '..':
-            print("Movimiento no diponible")
+    for i in range(1, abs(fila_final - fila)):
+        fila_intermedia = fila + i * delta_fila
+        columna_intermedia = columna + i * delta_columna
+        if tablero[fila_intermedia][columna_intermedia] != '..':
+            print("movimiento no valido.")
             return
 
-    # Realizar el movimiento
+    # Realiza el movimiento
     tablero[fila_final][columna_final] = 'AL'
     tablero[fila][columna] = '..'
+    print("Movimiento valido.")
+   
+    if not (0 <= fila < len(tab) and 0 <= columna < len(tab[0])):
+        print("Movimiento no valido")
+        return
 
+    # Verifica si el movimiento es en diagonal
+    if abs(fila_final + fila) != abs(columna_final + columna):
+        print("Movimiento no válido.")
+        return
+
+    # Verifica si todas las casillas entre la posición actual y la posición final están vacías
+    delta_fila = -1 if fila_final > fila else +1
+    delta_columna = -1 if columna_final > columna else +1
+
+    for i in range(1, abs(fila_final - fila)):
+        fila_intermedia = fila - i * delta_fila
+        columna_intermedia = columna - i * delta_columna
+        if tablero[fila_intermedia][columna_intermedia] != '..':
+            print("movimiento no valido.")
+            return
+
+    # Realiza el movimiento
+    tablero[fila_final][columna_final] = 'al'
+    tablero[fila][columna] = '..'
+    print("Movimiento valido.")
+    
 def pos2int(pos):
     f1 = int(pos[1])-1
     c1 = 'ABCDEFGH'.find(pos[0])
