@@ -241,6 +241,38 @@ def mover_rey(
     else:
         print('Movimiento no disponible')
 
+def mover_alfil(
+    tablero, 
+    fila, 
+    columna, 
+    fila_final, 
+    columna_final):
+    
+    if not (0 <= fila < 8) or not (0 <= columna < 8) or \
+            not (0 <= fila_final < 8) or not (0 <= columna_final < 8):
+        print("Movimiento no disponible")
+        return
+
+    # Verificar si el movimiento es diagonal
+    if abs(fila_final - fila) != abs(columna_final - columna):
+        print("Verifica los movimientos")
+        return
+
+    # Verificar espacio del tablero
+    dx = 1 if columna_final > columna else -1
+    dy = 1 if fila_final > fila else -1
+    x, y = columna, fila
+
+    while x != columna_final:
+        x += dx
+        y += dy
+        if tablero[y][x] != '..':
+            print("Movimiento no diponible")
+            return
+
+    # Realizar el movimiento
+    tablero[fila_final][columna_final] = 'AL'
+    tablero[fila][columna] = '..'
 
 def pos2int(pos):
     f1 = int(pos[1])-1
@@ -272,10 +304,8 @@ def leer_movimiento():
                 movimiento[3] in filas:
             print('movimiento valido')
             f1, c1, f2, c2 = pos2int(movimiento)
-            print(f'{movimiento[1]} : {f1} |{
-                  movimiento[0]} : {c1}|{tablero[f1][c1]}')
-            print(f'{movimiento[3]} : {f2} |{
-                  movimiento[2]} : {c2}|{tablero[f2][c2]}')
+            print(f'{movimiento[1]} : {f1} |{movimiento[0]} : {c1}|{tablero[f1][c1]}')
+            print(f'{movimiento[3]} : {f2} |{movimiento[2]} : {c2}|{tablero[f2][c2]}')
             mover_ficha(tablero, (f1, c1), (f2, c2))
 
         else:
@@ -309,6 +339,9 @@ def mover_ficha(tablero, pos, pos_obj):
 
         elif ficha_ini in ('KI', 'ki'):
             mover_rey(tablero, pos[0], pos[1], pos_obj[0], pos_obj[1])
+        
+        elif ficha_ini in ('AL', 'al'):
+            mover_alfil(tablero, pos[0], pos[1], pos_obj[0], pos_obj[1])
         else:
             ficha_ini in ('PE', 'pe')
             mover_peon(tablero, pos[0], pos[1], pos_obj[0], pos_obj[1])
