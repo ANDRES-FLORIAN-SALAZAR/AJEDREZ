@@ -1,14 +1,24 @@
 import os
+import fichas
+
 
 tablero = [
-    ['to', 'ca', 'al', 'qu', 'ki', 'al', 'ca', 'to'],
-    ['pe', 'pe', 'pe', 'pe', 'pe', 'pe', 'pe', 'pe'],
-    ['..', '..', '..', '..', '..', '..', '..', '..'],
-    ['..', '..', '..', '..', '..', '..', '..', '..'],
-    ['..', '..', '..', '..', '..', '..', '..', '..'],
-    ['..', '..', '..', '..', '..', '..', '..', '..'],
-    ['PE', 'PE', 'PE', 'PE', 'PE', 'PE', 'PE', 'PE'],
-    ['TO', 'CA', 'AL', 'QU', 'KI', 'AL', 'CA', 'TO'],
+    [fichas.TORRE_BLANCA, fichas.CABALLO_BLANCO, fichas.ALFIL_BLANCO, fichas.REINA_BLANCA,
+        fichas.REY_BLANCO, fichas.ALFIL_BLANCO, fichas.CABALLO_BLANCO, fichas.TORRE_BLANCA],
+    [fichas.PEON_BLANCO, fichas.PEON_BLANCO, fichas.PEON_BLANCO, fichas.PEON_BLANCO,
+        fichas.PEON_BLANCO, fichas.PEON_BLANCO, fichas.PEON_BLANCO, fichas.PEON_BLANCO],
+    [fichas.ESPACIO, fichas.ESPACIO, fichas.ESPACIO, fichas.ESPACIO,
+        fichas.ESPACIO, fichas.ESPACIO, fichas.ESPACIO, fichas.ESPACIO],
+    [fichas.ESPACIO, fichas.ESPACIO, fichas.ESPACIO, fichas.ESPACIO,
+        fichas.ESPACIO, fichas.ESPACIO, fichas.ESPACIO, fichas.ESPACIO],
+    [fichas.ESPACIO, fichas.ESPACIO, fichas.ESPACIO, fichas.ESPACIO,
+        fichas.ESPACIO, fichas.ESPACIO, fichas.ESPACIO, fichas.ESPACIO],
+    [fichas.ESPACIO, fichas.ESPACIO, fichas.ESPACIO, fichas.ESPACIO,
+        fichas.ESPACIO, fichas.ESPACIO, fichas.ESPACIO, fichas.ESPACIO],
+    [fichas.PEON_NEGRO, fichas.PEON_NEGRO, fichas.PEON_NEGRO, fichas.PEON_NEGRO,
+        fichas.PEON_NEGRO, fichas.PEON_NEGRO, fichas.PEON_NEGRO, fichas.PEON_NEGRO],
+    [fichas.TORRE_NEGRA, fichas.CABALLO_NEGRO, fichas.ALFIL_NEGRO, fichas.REINA_NEGRA,
+        fichas.REY_NEGRO, fichas.ALFIL_NEGRO, fichas.CABALLO_NEGRO, fichas.TORRE_NEGRA],
 ]
 
 
@@ -38,19 +48,19 @@ def mover_peon(
                 (
                     # movimiento al frente
                     columna_final == columna and
-                    tab[fila_final][columna_final] == '..'
+                    tab[fila_final][columna_final] == fichas.ESPACIO
                 ) or (
                     # movimiento diagonal derecha
                     columna_final == columna+1 and
-                    tab[fila_final][columna_final] == '..'
+                    tab[fila_final][columna_final] == fichas.ESPACIO
                 ) or (
                     # movimiento diagonal izquierda
                     columna_final == columna-1 and
-                    tab[fila_final][columna_final] == '..'
+                    tab[fila_final][columna_final] == fichas.ESPACIO
                 )
             ):
-        tab[fila_final][columna_final] = 'PE'
-        tab[fila][columna] = '..'
+        tab[fila_final][columna_final] = fichas.PEON_NEGRO
+        tab[fila][columna] = fichas.ESPACIO
     else:
         print('Movimiento no disponible')
 
@@ -59,22 +69,29 @@ def mover_peon(
                 (
                     # movimiento al frente
                     columna_final == columna and
-                    tab[fila_final][columna_final] == '..'
+                    tab[fila_final][columna_final] == fichas.ESPACIO
                 ) or (
                     # movimiento diagonal derecha
                     columna_final == columna+1 and
-                    tab[fila_final][columna_final] == '..'
+                    tab[fila_final][columna_final] == fichas.ESPACIO
                 ) or (
                     # movimiento diagonal izquierda
                     columna_final == columna-1 and
-                    tab[fila_final][columna_final] == '..'
+                    tab[fila_final][columna_final] == fichas.ESPACIO
                 )
             ):
-        tab[fila_final][columna_final] = 'pe'
-        tab[fila][columna] = '..'
+        tab[fila_final][columna_final] = fichas.PEON_BLANCO
+        tab[fila][columna] = fichas.ESPACIO
 
     else:
         print('Movimiento no disponible')
+
+
+def movimiento_valido(ficha_inicial, ficha_objetivo):
+    if ficha_inicial in fichas.BLANCAS and ficha_objetivo in (fichas.NEGRAS + (fichas.ESPACIO,)) or \
+            ficha_inicial in fichas.NEGRAS and ficha_objetivo in (fichas.BLANCAS + (fichas.ESPACIO,)):
+        return True
+    return False
 
 
 def mover_caballo(
@@ -85,68 +102,19 @@ def mover_caballo(
     columna_final
 ):
 
-    ficha_destino = tab[fila_final][columna_final]
-    caballo = tab[fila][columna]
-
     mover_caballo = False
-    # movimientos izquierda
-    if fila - 2 == fila_final:
-        if columna + 1 == columna_final or columna - 1 == columna_final:
-            if tab[fila_final][columna_final] == '..':
-                mover_caballo = True
-    # movimientos abajo
-    elif fila - 1 == fila_final:
-        if columna + 2 == columna_final or columna - 2 == columna_final:
-            if tab[fila_final][columna_final] == '..':
-                mover_caballo = True
-    # movimientos derecha
-    elif fila + 2 == fila_final:
-        if columna + 1 == columna_final or columna - 1 == columna_final:
-            if tab[fila_final][columna_final] == '..':
-                mover_caballo = True
-    # movimiento arriba
-    elif fila + 1 == fila_final:
-        if columna + 2 == columna_final or columna - 2 == columna_final:
-            if tab[fila_final][columna_final] == '..':
-                mover_caballo = True
-    else:
-        mover_caballo = False
+
+    if ((abs(fila - fila_final) == 2 and abs(columna - columna_final) == 1) or
+            (abs(fila - fila_final) == 1 and abs(columna - columna_final) == 2)) and \
+            movimiento_valido(tab[fila][columna], tab[fila_final][columna_final]):
+        mover_caballo = True
 
     if mover_caballo:
-        tab[fila_final][columna_final] = 'CA'
-        tab[fila][columna] = '..'
+        tab[fila_final][columna_final] = tab[fila][columna]
+        tab[fila][columna] = fichas.ESPACIO
     else:
         print('Movimiento no disponible')
 
-    mover_caballo = False
-    # movimientos izquierda
-    if fila + 2 == fila_final:
-        if columna - 1 == columna_final or columna + 1 == columna_final:
-            if tab[fila_final][columna_final] == '..':
-                mover_caballo = True
-    # movimientos abajo
-    elif fila + 1 == fila_final:
-        if columna - 2 == columna_final or columna + 2 == columna_final:
-            if tab[fila_final][columna_final] == '..':
-                mover_caballo = True
-    # movimientos derecha
-    elif fila - 2 == fila_final:
-        if columna - 1 == columna_final or columna + 1 == columna_final:
-            if tab[fila_final][columna_final] == '..':
-                mover_caballo = True
-    # movimiento arriba
-    elif fila - 1 == fila_final:
-        if columna - 2 == columna_final or columna + 2 == columna_final:
-            if tab[fila_final][columna_final] == '..':
-                mover_caballo = True
-    else:
-        mover_caballo = False
-
-    if mover_caballo:
-        tab[fila_final][columna_final] = 'ca'
-        tab[fila][columna] = '..'
-    else:
-        print('Movimiento no disponible')
 
 def mover_reina(
         tab,
@@ -161,33 +129,33 @@ def mover_reina(
         # movimiento izquierda
         if columna < columna_final:
             for i in range(columna+1, columna_final):
-                if tab[fila][columna] == '..':
+                if tab[fila][columna] == fichas.ESPACIO:
                     mover_reina = True
                     break
         # movimientos derecha
         elif columna > columna_final:
             for i in range(columna_final+1, columna):
-                if tab[fila][columna] == '..':
+                if tab[fila][columna] == fichas.ESPACIO:
                     mover_reina = True
                     break
      # movimientos arriba
     elif columna == columna_final:
         if fila < fila_final:
             for i in range(fila+1, fila_final):
-                if tab[fila][columna] == '..':
+                if tab[fila][columna] == fichas.ESPACIO:
                     mover_reina = True
                     break
          # movimientos abajo
         elif fila > fila_final:
             for i in range(fila_final+1, fila):
-                if tab[fila][columna] == '..':
+                if tab[fila][columna] == fichas.ESPACIO:
                     mover_reina = True
                     break
     else:
         mover_reina = False
     if mover_reina:
-        tab[fila_final][columna_final] = 'QU'
-        tab[fila][columna] = '..'
+        tab[fila_final][columna_final] = fichas.REINA_NEGRA
+        tab[fila][columna] = fichas.ESPACIO
     else:
         print('Movimiento no disponible')
 
@@ -197,36 +165,37 @@ def mover_reina(
         # movimiento izquierda
         if columna < columna_final:
             for i in range(columna-1, columna_final):
-                if tab[fila][columna] == '..':
+                if tab[fila][columna] == fichas.ESPACIO:
                     mover_reina = True
                     break
         # movimientos derecha
         elif columna > columna_final:
             for i in range(columna_final-1, columna):
-                if tab[fila][columna] == '..':
+                if tab[fila][columna] == fichas.ESPACIO:
                     mover_reina = True
                     break
      # movimientos arriba
     elif columna == columna_final:
         if fila < fila_final:
             for i in range(fila-1, fila_final):
-                if tab[fila][columna] == '..':
+                if tab[fila][columna] == fichas.ESPACIO:
                     mover_reina = True
                     break
          # movimientos abajo
         elif fila > fila_final:
             for i in range(fila_final-1, fila):
-                if tab[fila][columna] == '..':
+                if tab[fila][columna] == fichas.ESPACIO:
                     mover_reina = True
                     break
     else:
         mover_reina = False
     if mover_reina:
-        tab[fila_final][columna_final] = 'qu'
-        tab[fila][columna] = '..'
+        tab[fila_final][columna_final] = fichas.REINA_BLANCA
+        tab[fila][columna] = fichas.ESPACIO
     else:
         print('Movimiento no disponible')
-        
+
+
 def mover_torre(
     tab,
     fila,
@@ -241,14 +210,14 @@ def mover_torre(
         # movimiento derecha
         if columna < columna_final:
             for i in range(columna + 1, columna_final + 1, +1):
-                if tab[fila][i] == '..':
+                if tab[fila][i] == fichas.ESPACIO:
                     mover_torre = True
                     break
 
     # movimiento izquierda
         else:
             for i in range(columna - 1, columna_final - 1, -1):
-                if tab[fila][i] == '..':
+                if tab[fila][i] == fichas.ESPACIO:
                     mover_torre = True
                     break
 # movimiento vertical
@@ -256,37 +225,37 @@ def mover_torre(
         # movimiento arriba
         if fila > fila_final:
             for i in range(fila + 1, fila_final + 1, +1):
-                if tab[i][columna] == '..':
+                if tab[i][columna] == fichas.ESPACIO:
                     mover_torre = True
                     break
         # movimiento hacia abajo
         else:
             for i in range(fila + 1, fila_final + 1, +1):
-                if tab[i][columna] == '..':
-                    mover_torre == True
+                if tab[i][columna] == fichas.ESPACIO:
+                    mover_torre = True
                     break
     else:
         mover_torre = False
     if mover_torre:
-        tab[fila_final][columna_final] = 'TO'
-        tab[fila][columna] = '..'
+        tab[fila_final][columna_final] = fichas.TORRE_NEGRA
+        tab[fila][columna] = fichas.ESPACIO
     else:
         print('Movimiento no disponible')
-        
+
     mover_torre = True
     # movimiento horizontal
     if fila == fila_final:
         # movimiento derecha
         if columna < columna_final:
             for i in range(columna - 1, columna_final - 1, -1):
-                if tab[fila][i] == '..':
+                if tab[fila][i] == fichas.ESPACIO:
                     mover_torre = True
                     break
 
     # movimiento izquierda
         else:
             for i in range(columna + 1, columna_final + 1, +1):
-                if tab[fila][i] == '..':
+                if tab[fila][i] == fichas.ESPACIO:
                     mover_torre = True
                     break
 # movimiento vertical
@@ -294,20 +263,20 @@ def mover_torre(
         # movimiento arriba
         if fila > fila_final:
             for i in range(fila - 1, fila_final - 1, -1):
-                if tab[i][columna] == '..':
+                if tab[i][columna] == fichas.ESPACIO:
                     mover_torre = True
                     break
         # movimiento hacia abajo
         else:
             for i in range(fila - 1, fila_final - 1, -1):
-                if tab[i][columna] == '..':
-                    mover_torre == True
+                if tab[i][columna] == fichas.ESPACIO:
+                    mover_torre = True
                     break
     else:
         mover_torre = False
     if mover_torre:
-        tab[fila_final][columna_final] = 'to'
-        tab[fila][columna] = '..'
+        tab[fila_final][columna_final] = fichas.TORRE_BLANCA
+        tab[fila][columna] = fichas.ESPACIO
     else:
         print('Movimiento no disponible')
 
@@ -320,59 +289,26 @@ def mover_rey(
     columna_final
 ):
 
-    mover_rey = True
+    mover_rey = False
 
-    if fila - 1 == fila_final and \
-            (
-                (
-                    # movimiento al frente
-                    columna_final == columna and
-                    tab[fila_final][columna_final] == '..'
-                ) or (
-                    # movimiento diagonal derecha
-                    columna_final == columna+1 and
-                    tab[fila_final][columna_final] == '..'
-                ) or (
-                    # movimiento diagonal izquierda
-                    columna_final == columna-1 and
-                    tab[fila_final][columna_final] == '..'
-                )
-            ):
-        tab[fila_final][columna_final] = 'KI'
-        tab[fila][columna] = '..'
+    if (abs(fila - fila_final) <= 1 and abs(columna - columna_final) <= 1) and \
+            movimiento_valido(tab[fila][columna], tab[fila_final][columna_final]):
+        mover_rey = True
+
+    if mover_rey:
+        tab[fila_final][columna_final] = tab[fila][columna]
+        tab[fila][columna] = fichas.ESPACIO
     else:
         print('Movimiento no disponible')
-        
-    mover_rey = True
 
-    if fila + 1 == fila_final and \
-            (
-                (
-                    # movimiento al frente
-                    columna_final == columna and
-                    tab[fila_final][columna_final] == '..'
-                ) or (
-                    # movimiento diagonal derecha
-                    columna_final == columna+1 and
-                    tab[fila_final][columna_final] == '..'
-                ) or (
-                    # movimiento diagonal izquierda
-                    columna_final == columna-1 and
-                    tab[fila_final][columna_final] == '..'
-                )
-            ):
-        tab[fila_final][columna_final] = 'ki'
-        tab[fila][columna] = '..'
-    else:
-        print('Movimiento no disponible')
 
 def mover_alfil(
-    tab, 
-    fila, 
-    columna, 
-    fila_final, 
-    columna_final):
-    
+        tab,
+        fila,
+        columna,
+        fila_final,
+        columna_final):
+
     if not (0 <= fila < len(tab) and 0 <= columna < len(tab[0])):
         print("Movimiento no valido")
         return
@@ -389,15 +325,15 @@ def mover_alfil(
     for i in range(1, abs(fila_final - fila)):
         fila_intermedia = fila + i * delta_fila
         columna_intermedia = columna + i * delta_columna
-        if tablero[fila_intermedia][columna_intermedia] != '..':
+        if tablero[fila_intermedia][columna_intermedia] != fichas.ESPACIO:
             print("movimiento no valido.")
             return
 
     # Realiza el movimiento
-    tablero[fila_final][columna_final] = 'AL'
-    tablero[fila][columna] = '..'
+    tablero[fila_final][columna_final] = fichas.ALFIL_NEGRO
+    tablero[fila][columna] = fichas.ESPACIO
     print("Movimiento valido.")
-   
+
     if not (0 <= fila < len(tab) and 0 <= columna < len(tab[0])):
         print("Movimiento no valido")
         return
@@ -414,15 +350,16 @@ def mover_alfil(
     for i in range(1, abs(fila_final - fila)):
         fila_intermedia = fila - i * delta_fila
         columna_intermedia = columna - i * delta_columna
-        if tablero[fila_intermedia][columna_intermedia] != '..':
+        if tablero[fila_intermedia][columna_intermedia] != fichas.ESPACIO:
             print("movimiento no valido.")
             return
 
     # Realiza el movimiento
-    tablero[fila_final][columna_final] = 'al'
-    tablero[fila][columna] = '..'
+    tablero[fila_final][columna_final] = fichas.ALFIL_BLANCO
+    tablero[fila][columna] = fichas.ESPACIO
     print("Movimiento valido.")
-    
+
+
 def pos2int(pos):
     f1 = int(pos[1])-1
     c1 = 'ABCDEFGH'.find(pos[0])
@@ -440,7 +377,7 @@ def clear_screen():
     os.system(comando)
 
 
-def leer_movimiento():
+def leer_movimiento(tablero):
     movimiento = input('ingrese el movimiento: ')
     movimiento = movimiento.upper()
 
@@ -453,48 +390,48 @@ def leer_movimiento():
                 movimiento[3] in filas:
             print('movimiento valido')
             f1, c1, f2, c2 = pos2int(movimiento)
-            print(f'{movimiento[1]} : {f1} |{movimiento[0]} : {c1}|{tablero[f1][c1]}')
-            print(f'{movimiento[3]} : {f2} |{movimiento[2]} : {c2}|{tablero[f2][c2]}')
+            print(f'{movimiento[1]} : {f1} |{
+                  movimiento[0]} : {c1}|{tablero[f1][c1]}')
+            print(f'{movimiento[3]} : {f2} |{
+                  movimiento[2]} : {c2}|{tablero[f2][c2]}')
             mover_ficha(tablero, (f1, c1), (f2, c2))
 
         else:
             print('movimiento no permitido')
-            leer_movimiento()
+            leer_movimiento(tablero)
 
     else:
         print('movimiento no permitido')
-        leer_movimiento()
+        leer_movimiento(tablero)
 
 
 def mover_ficha(tablero, pos, pos_obj):
     ficha_ini = tablero[pos[0]][pos[1]]
     ficha_obj = tablero[pos_obj[0]][pos_obj[1]]
 
-    blancas = ('to', 'ca', 'al', 'qu', 'ki', 'pe')
-    negras = ('TO', 'CA', 'AL', 'QU', 'KI', 'PE')
-    espacio = ('..',)
-
-    if (ficha_ini in blancas and ficha_obj in (negras + espacio)) or \
-       (ficha_ini in negras and ficha_obj in (blancas + espacio)):
-
-        if ficha_ini in ('TO', 'to'):
+    if movimiento_valido(ficha_ini, ficha_obj):
+        if ficha_ini in (fichas.TORRE_NEGRA, fichas.TORRE_BLANCA):
             mover_torre(tablero, pos[0], pos[1], pos_obj[0], pos_obj[1])
 
-        elif ficha_ini in ('CA', 'ca'):
+        elif ficha_ini in (fichas.CABALLO_NEGRO, fichas.CABALLO_BLANCO):
             mover_caballo(tablero, pos[0], pos[1], pos_obj[0], pos_obj[1])
 
-        elif ficha_ini in ('QU', 'qu'):
+        elif ficha_ini in (fichas.REINA_NEGRA, fichas.REINA_BLANCA):
             mover_reina(tablero, pos[0], pos[1], pos_obj[0], pos_obj[1])
 
-        elif ficha_ini in ('KI', 'ki'):
+        elif ficha_ini in (fichas.REY_NEGRO, fichas.REY_BLANCO):
             mover_rey(tablero, pos[0], pos[1], pos_obj[0], pos_obj[1])
-        
-        elif ficha_ini in ('AL', 'al'):
+
+        elif ficha_ini in (fichas.ALFIL_NEGRO, fichas.ALFIL_BLANCO):
             mover_alfil(tablero, pos[0], pos[1], pos_obj[0], pos_obj[1])
-        else:
-            ficha_ini in ('PE', 'pe')
+
+        elif ficha_ini in (fichas.PEON_NEGRO, fichas.PEON_BLANCO):
             mover_peon(tablero, pos[0], pos[1], pos_obj[0], pos_obj[1])
 
+        else:
+            print('Movimiento invalido')
 
-leer_movimiento()
+
+imprimir_tablero(tablero)
+leer_movimiento(tablero)
 imprimir_tablero(tablero)
