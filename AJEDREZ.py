@@ -2,15 +2,30 @@ import os
 import fichas
 import menu
 
-def menu():
+def imprimir_menu():
     while True:
         print("\n¡Bienvenido al juego de ajedrez!")
-        print("1. Jugar con las Blancas")
-        print("2. Jugar con las Negras")
+        print("1. Fichas Blancas")
+        print("2. Fichas Negras")
         print("3. Terminar juego")
         print("4. volver al menu")
-opcion = input("Selecciona una opción (1/2/3/4/5): ")
-         
+        opcion = input("Selecciona una opción: ")
+
+        if opcion == "1":
+            print("\n¡Buena suerte!")
+            break
+        elif opcion == "2":
+            print("\n¡Que gane el mejor!")
+            break
+        elif opcion == "3":
+            print("\n¡Hasta luego! Gracias por jugar.")
+            break
+        elif opcion == "4":
+            print("\n¡volver al menú.")
+            break
+        else:
+            print("\nOpción no válida.")
+
 tablero = [
     [fichas.TORRE_BLANCA, fichas.CABALLO_BLANCO, fichas.ALFIL_BLANCO, fichas.REINA_BLANCA,
         fichas.REY_BLANCO, fichas.ALFIL_BLANCO, fichas.CABALLO_BLANCO, fichas.TORRE_BLANCA],
@@ -401,10 +416,9 @@ def mover_ficha(tablero, pos, pos_obj):
 
 
 while True:
-    menu(menu)
+    imprimir_menu()
     imprimir_tablero(tablero)
     leer_movimiento(tablero)
-    clear_screen()
     input('Enter para continuar...')
     clear_screen()
     imprimir_tablero(tablero)
