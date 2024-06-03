@@ -1,9 +1,9 @@
-def menu_juego():
+def menu():
     while True:
         print("\n¡Bienvenido al juego de ajedrez!")
         print("1. Jugar con las Blancas")
         print("2. Jugar con las Negras")
-        print("3. Salir del juego")
+        print("3. Terminar juego")
         print("4. volver al menu")
         opcion = input("Selecciona una opción (1/2/3/4/5): ")
 
