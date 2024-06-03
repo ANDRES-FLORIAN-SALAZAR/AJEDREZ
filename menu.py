@@ -22,4 +22,4 @@ def menu():
         else:
             print("\nOpción no válida. Por favor, selecciona 1, 2, 3, 4.")
 
-menu_juego()
+menu()
