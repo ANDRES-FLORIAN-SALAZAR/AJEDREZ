@@ -117,7 +117,8 @@ def mover_reina(
         columna_final):
 
     mover_reina = True
-
+    mover_horizontal= True
+    
     if fila == fila_final:
         mover_reina = mover_horizontal(tab, fila, columna, fila_final, columna_final)
 
