@@ -1,7 +1,16 @@
 import os
 import fichas
+import menu
 
-
+def menu_juego():
+    while True:
+        print("\n¡Bienvenido al juego de ajedrez!")
+        print("1. Jugar con las Blancas")
+        print("2. Jugar con las Negras")
+        print("3. Salir del juego")
+        print("4. volver al menu")
+opcion = input("Selecciona una opción (1/2/3/4/5): ")
+         
 tablero = [
     [fichas.TORRE_BLANCA, fichas.CABALLO_BLANCO, fichas.ALFIL_BLANCO, fichas.REINA_BLANCA,
         fichas.REY_BLANCO, fichas.ALFIL_BLANCO, fichas.CABALLO_BLANCO, fichas.TORRE_BLANCA],
@@ -24,7 +33,7 @@ tablero = [
 
 def imprimir_tablero(tablero):
     print('\n\n')
-    print('    A ', '  B  ', ' C ', '  D ', '  E ', '  F ', '  G ', '  H ')
+    print('   | A ', '  B  ', ' C ', '  D ', '  E ', '  F ', '  G ', '  H |')
     print('   _______________________________________')
     for i, fila, in enumerate(tablero):
         print(i+1, end=' | ')
@@ -392,8 +401,9 @@ def mover_ficha(tablero, pos, pos_obj):
 
 
 while True:
+    menu_juego()
     clear_screen()
     imprimir_tablero(tablero)
     leer_movimiento(tablero)
+    clear_screen()
     input('Enter para continuar...')
-
