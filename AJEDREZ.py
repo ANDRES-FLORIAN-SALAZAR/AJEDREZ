@@ -2,7 +2,6 @@ import os
 import fichas
 import menu
 
-
 def imprimir_menu():
     while True:
         print("\n¡Bienvenido al juego de ajedrez!\n")
@@ -25,10 +24,8 @@ def imprimir_menu():
             print("\n¡Hasta luego! Gracias por jugar.\n")
             break
         else:
-            print("\nOpción no válida.")
+            print("\nOpción no válida.\n")
     return opcion
-
-
 
 tablero = [
     [fichas.TORRE_BLANCA, fichas.CABALLO_BLANCO, fichas.ALFIL_BLANCO, fichas.REINA_BLANCA,
