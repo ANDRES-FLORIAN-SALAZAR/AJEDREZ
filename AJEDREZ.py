@@ -371,6 +371,9 @@ while True:
     if opt == "4":
         print("\n¡Hasta luego! Gracias por jugar.")
         break
+    elif opt == "3":
+        print(imprimir_menu())
+        break
     imprimir_tablero(tablero)
     leer_movimiento(tablero)
     input('Enter para continuar...')
