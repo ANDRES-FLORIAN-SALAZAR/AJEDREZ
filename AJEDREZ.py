@@ -368,11 +368,11 @@ def mover_ficha(tablero, pos, pos_obj):
 
 while True:
     opt = imprimir_menu()
-    if opt == "4":
-        print("\n¡Hasta luego! Gracias por jugar.")
-        break
-    elif opt == "3":
+    if opt == "3":
         print(imprimir_menu())
+        break
+    elif opt == "4":
+        print("\n¡Hasta luego! Gracias por jugar.")
         break
     imprimir_tablero(tablero)
     leer_movimiento(tablero)
