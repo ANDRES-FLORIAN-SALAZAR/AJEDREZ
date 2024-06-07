@@ -21,6 +21,7 @@ def imprimir_menu():
             break
         else:
             print("\nOpción no válida.")
+    return opcion
             
 
 
