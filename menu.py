@@ -3,8 +3,8 @@ def imprimir_menu():
         print("\n¡Bienvenido al juego de ajedrez!")
         print("1. Fichas Blancas")
         print("2. Fichas Negras")
-        print("3. Terminar juego")
-        print("4. volver al menu")
+        print("3. volver al menu")
+        print("4. Terminar juego")
         opcion = input("Selecciona una opción: ")
 
         if opcion == "1":
@@ -14,12 +14,14 @@ def imprimir_menu():
             print("\n¡Que gane el mejor!")
             break
         elif opcion == "3":
-            print("\n¡Hasta luego! Gracias por jugar.")
+            print("\n¡volver al menú.")
             break
         elif opcion == "4":
-            print("\n¡volver al menú.")
+            print("\n¡Hasta luego! Gracias por jugar.")
             break
         else:
             print("\nOpción no válida.")
+            
+
 
 imprimir_menu()
