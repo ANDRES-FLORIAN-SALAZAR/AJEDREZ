@@ -19,13 +19,14 @@ def imprimir_menu():
             print("\n¡Que gane el mejor!")
             break
         elif opcion == "3":
-            print("\n¡Hasta luego! Gracias por jugar.")
+            print("\n¡volver al menú.")
             break
         elif opcion == "4":
-            print("\n¡volver al menú.")
+            print("\n¡Hasta luego! Gracias por jugar.")
             break
         else:
             print("\nOpción no válida.")
+    return opcion
 
 
 tablero = [
@@ -366,10 +367,11 @@ def mover_ficha(tablero, pos, pos_obj):
 
 
 while True:
-    imprimir_menu()
+    opt = imprimir_menu()
+    if opt == "4":
+        print("\n¡Hasta luego! Gracias por jugar.")
+        break
     imprimir_tablero(tablero)
     leer_movimiento(tablero)
     input('Enter para continuar...')
     clear_screen()
-    imprimir_tablero(tablero)
-
