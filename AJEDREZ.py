@@ -5,11 +5,11 @@ import menu
 
 def imprimir_menu():
     while True:
-        print("\n¡Bienvenido al juego de ajedrez!")
-        print("1. Fichas Blancas")
+        print("\n¡Bienvenido al juego de ajedrez!\n")
+        print("\n1. Fichas Blancas")
         print("2. Fichas Negras")
         print("3. volver al menu")
-        print("4. Terminar juego")
+        print("4. Terminar juego\n")
         opcion = input("Selecciona una opción: ")
 
         if opcion == "1":
@@ -22,11 +22,12 @@ def imprimir_menu():
             print("\n¡volver al menú.")
             break
         elif opcion == "4":
-            print("\n¡Hasta luego! Gracias por jugar.")
+            print("\n¡Hasta luego! Gracias por jugar.\n")
             break
         else:
             print("\nOpción no válida.")
     return opcion
+
 
 
 tablero = [
