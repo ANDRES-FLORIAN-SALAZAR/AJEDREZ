@@ -20,7 +20,7 @@ def imprimir_menu():
             print("\n¡Hasta luego! Gracias por jugar.\n")
             break
         else:
-            print("\nOpción no válida.")
+            print("\nOpción no válida.\n")
     return opcion
     
 imprimir_menu()
