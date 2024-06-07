@@ -46,7 +46,6 @@ tablero = [
         fichas.REY_NEGRO, fichas.ALFIL_NEGRO, fichas.CABALLO_NEGRO, fichas.TORRE_NEGRA],
 ]
 
-
 def imprimir_tablero(tablero):
     print('\n\n')
     print('    A ', '  B  ', ' C ', '  D ', '  E ', '  F ', '  G ', '  H ')
@@ -58,7 +57,6 @@ def imprimir_tablero(tablero):
         print(f'{i+1}')
     print('   _______________________________________')
     print('    A ', '  B  ', ' C ', '  D ', '  E ', '  F ', '  G ', '  H ')
-
 
 def mover_peon(
     tab,
@@ -105,13 +103,11 @@ def mover_peon(
         tab[fila_final][columna_final] = ficha
         tab[fila][columna] = fichas.ESPACIO
 
-
 def movimiento_valido(ficha_inicial, ficha_objetivo):
     if ficha_inicial in fichas.BLANCAS and ficha_objetivo in (fichas.NEGRAS + (fichas.ESPACIO,)) or \
             ficha_inicial in fichas.NEGRAS and ficha_objetivo in (fichas.BLANCAS + (fichas.ESPACIO,)):
         return True
     return False
-
 
 def mover_caballo(
     tab,
@@ -133,7 +129,6 @@ def mover_caballo(
         tab[fila][columna] = fichas.ESPACIO
     else:
         print('Movimiento no disponible')
-
 
 def mover_reina(
         tab,
@@ -163,7 +158,6 @@ def mover_reina(
     else:
         print('Movimiento no disponible')
 
-
 def mover_horizontal(tab, fila, columna, fila_final, columna_final):
     puede_mover = True
 
@@ -182,7 +176,6 @@ def mover_horizontal(tab, fila, columna, fila_final, columna_final):
 
     return puede_mover
 
-
 def mover_vertical(tab, fila, columna, fila_final, columna_final):
     puede_mover = True
 
@@ -200,14 +193,12 @@ def mover_vertical(tab, fila, columna, fila_final, columna_final):
 
     return puede_mover
 
-
 def mover_diagonal(tab, fila, columna, fila_final, columna_final):
     puede_mover = True
 
     # Agregar codiga aqui
 
     return puede_mover
-
 
 def mover_torre(
         tab,
@@ -235,7 +226,6 @@ def mover_torre(
         tab[fila][columna] = fichas.ESPACIO
         print('Movimiento de la torre realizado con éxito.')
 
-
 def mover_rey(
     tab,
     fila,
@@ -255,7 +245,6 @@ def mover_rey(
         tab[fila][columna] = fichas.ESPACIO
     else:
         print('Movimiento no disponible')
-
 
 def mover_alfil(
         tab,
@@ -291,7 +280,6 @@ def mover_alfil(
         tablero[fila][columna] = fichas.ESPACIO
         print("Movimiento valido.")
 
-
 def pos2int(pos):
     f1 = int(pos[1])-1
     c1 = 'ABCDEFGH'.find(pos[0])
@@ -300,14 +288,12 @@ def pos2int(pos):
 
     return f1, c1, f2, c2
 
-
 def clear_screen():
     comando = 'cls'
     if os.name != 'nt':
         comando = 'clear'
 
     os.system(comando)
-
 
 def leer_movimiento(tablero):
     movimiento = input('ingrese el movimiento: ')
@@ -336,7 +322,6 @@ def leer_movimiento(tablero):
         print('movimiento no permitido')
         leer_movimiento(tablero)
 
-
 def mover_ficha(tablero, pos, pos_obj):
     ficha_ini = tablero[pos[0]][pos[1]]
     ficha_obj = tablero[pos_obj[0]][pos_obj[1]]
@@ -362,7 +347,6 @@ def mover_ficha(tablero, pos, pos_obj):
 
         else:
             print('Movimiento invalido')
-
 
 while True:
     opt = imprimir_menu()
